@@ -1,4 +1,4 @@
-CRED Replication Using MERN Stack
+**CRED Replication Using MERN Stack**
 
 Project Overview
 
