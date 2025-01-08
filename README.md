@@ -1,4 +1,7 @@
 **CRED Replication Using MERN Stack**
+ <video width="600" height="400" controls>
+    <source src="CRED.mp4" type="video/mp4">
+  </video>
 
 Project Overview
 
