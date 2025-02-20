@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRED - Offline</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            background: #f7f7f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 400px;
+        }
+        .icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.5rem;
+        }
+        h1 {
+            color: #1a1a1a;
+            margin: 0 0 1rem;
+            font-size: 1.5rem;
+        }
+        p {
+            color: #666;
+            margin: 0 0 1.5rem;
+            line-height: 1.5;
+        }
+        .button {
+            background: #5851ff;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .button:hover {
+            background: #4a45cc;
+        }
+        .cached-content {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+        </svg>
+        <h1>You're Offline</h1>
+        <p>It looks like you've lost your internet connection. Don't worry - some features are still available offline!</p>
+        <button class="button" onclick="window.location.reload()">Try Again</button>
+        <div id="cached-content" class="cached-content" style="display: none;">
+            <h2>Available Offline</h2>
+            <div id="cached-list"></div>
+        </div>
+    </div>
+    <script>
+        // Check for cached content
+        if ('caches' in window) {
+            caches.open('cred-api-cache-v1').then(cache => {
+                cache.keys().then(keys => {
+                    if (keys.length > 0) {
+                        document.getElementById('cached-content').style.display = 'block';
+                        const list = document.getElementById('cached-list');
+                        keys.forEach(key => {
+                            const item = document.createElement('div');
+                            item.textContent = key.url.split('/api/')[1];
+                            list.appendChild(item);
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Listen for online status
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>

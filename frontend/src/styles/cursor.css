@@ -1,0 +1,33 @@
+.cursor {
+  width: 8px;
+  height: 8px;
+  background: #D1FFD0;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.cursor-follower {
+  width: 24px;
+  height: 24px;
+  background: rgba(209, 255, 208, 0.3);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.2s ease;
+}
+
+/* Hover effects */
+a:hover ~ .cursor,
+button:hover ~ .cursor {
+  transform: scale(2);
+}
+
+a:hover ~ .cursor-follower,
+button:hover ~ .cursor-follower {
+  transform: scale(1.5);
+  background: rgba(209, 255, 208, 0.1);
+}
